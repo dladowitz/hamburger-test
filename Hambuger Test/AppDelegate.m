@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "CPTabBarController.h"
 
 @implementation AppDelegate
 
@@ -14,6 +15,9 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    CPTabBarController *ctbc = [[CPTabBarController alloc] init];
+    self.window.rootViewController = ctbc;
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
