@@ -18,7 +18,7 @@
     CPTabBarController *ctbc = [[CPTabBarController alloc] init];
     self.window.rootViewController = ctbc;
     
-    self.window.backgroundColor = [UIColor whiteColor];
+    self.window.backgroundColor = [UIColor blueColor];
     [self.window makeKeyAndVisible];
     return YES;
 }

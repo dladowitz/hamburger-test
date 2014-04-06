@@ -33,15 +33,31 @@
 
 - (void)onPan:(UIPanGestureRecognizer *)panGestureRecognizer {
     
-    CGPoint touchPoint = [panGestureRecognizer locationInView:self.view.superview];
-    CGPoint velocity = [panGestureRecognizer velocityInView:self.view.superview];
+    // Gets distance moved x,y
+    CGPoint translation = [panGestureRecognizer translationInView:self.view.superview];
     
-    CGPoint constrainedPoint = CGPointMake(touchPoint.x, 245);
+    // sets the center as old center plus amount moved in each direction
+    panGestureRecognizer.view.center = CGPointMake(panGestureRecognizer.view.center.x + translation.x, 284);
     
-    NSLog(@"Gesture: %@", NSStringFromCGPoint(touchPoint));
-    NSLog(@"Velocity: %@", NSStringFromCGPoint(velocity));
+    // Prevents view from moving offscreen to the left
+    if (panGestureRecognizer.view.center.x < 160) {
+        panGestureRecognizer.view.center = CGPointMake(160, 284);
+        
+    // Prevents view from moving too far to the right
+    } else if (panGestureRecognizer.view.center.x > 450) {
+        panGestureRecognizer.view.center = CGPointMake(450, 284);
+    }
+    
+    // Resets the translation property for next use
+    [panGestureRecognizer setTranslation:CGPointMake(0, 0) inView:self.view];
 
-    panGestureRecognizer.view.center = constrainedPoint;
+    
+//    NSLog(@"%@", translation);
+//    CGPoint touchPoint = [panGestureRecognizer locationInView:self.view.superview];
+//    CGPoint velocity = [panGestureRecognizer velocityInView:self.view.superview];
+//    NSLog(@"Gesture: %@", NSStringFromCGPoint(touchPoint));
+//    NSLog(@"Velocity: %@", NSStringFromCGPoint(velocity));
+
 }
 
 - (void)didReceiveMemoryWarning
