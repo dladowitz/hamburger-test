@@ -26,7 +26,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPan:)];
     [self.view addGestureRecognizer:panGestureRecognizer];
@@ -34,29 +33,17 @@
 
 - (void)onPan:(UIPanGestureRecognizer *)panGestureRecognizer {
     
-    CGPoint touchPoint = [panGestureRecognizer locationInView:self.view];
+    CGPoint touchPoint = [panGestureRecognizer locationInView:self.view.superview];
+    CGPoint velocity = [panGestureRecognizer velocityInView:self.view.superview];
+    
     CGPoint constrainedPoint = CGPointMake(touchPoint.x, 245);
     
-    
-    CGPoint velocity = [panGestureRecognizer velocityInView:self.view];
-    
-    if (panGestureRecognizer.state == UIGestureRecognizerStateBegan)
-    {
-        NSLog(@"Gesture began at: %@", NSStringFromCGPoint(constrainedPoint));
-    } else if (panGestureRecognizer.state == UIGestureRecognizerStateChanged)
-    {
-        NSLog(@"Gesture changed: %@", NSStringFromCGPoint(constrainedPoint));
-        
-        panGestureRecognizer.view.center = constrainedPoint;
-        //NSLog(@"Gesture velocity: %@", NSNumber(velocity));
-    } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded)
-    {
-        NSLog(@"Gesture ended: %@", NSStringFromCGPoint(constrainedPoint));
-    }
-    
-    
-    
+    NSLog(@"Gesture: %@", NSStringFromCGPoint(touchPoint));
+    NSLog(@"Velocity: %@", NSStringFromCGPoint(velocity));
+
+    panGestureRecognizer.view.center = constrainedPoint;
 }
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
